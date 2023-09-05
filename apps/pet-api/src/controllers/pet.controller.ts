@@ -1,6 +1,12 @@
 import type { RequestHandler } from 'express';
-import type { CreatePet } from '@petstore/db/pets';
-import { getAllPets, createPet, deletePet, getPet } from '@petstore/db/pets';
+import type { CreatePet, PartialPet, PetId } from '@petstore/db/pets';
+import {
+  getAllPets,
+  createPet,
+  deletePet,
+  getPet,
+  updatePet,
+} from '@petstore/db/pets';
 
 const getAll: RequestHandler = async (req, res) => {
   const pets = await getAllPets();
@@ -15,7 +21,7 @@ const create: RequestHandler = async (req, res) => {
 };
 
 const handleDelete: RequestHandler = async (req, res) => {
-  const { id } = req.params as { id: string };
+  const { id } = req.params as PetId;
   await deletePet(id);
 
   res.sendStatus(204);
@@ -23,6 +29,20 @@ const handleDelete: RequestHandler = async (req, res) => {
 
 const findOne: RequestHandler = async (req, res) => {
   const { id } = req.params as { id: string };
+const update: RequestHandler = async (req, res) => {
+  const { id } = req.params as PetId;
+  const partial = req.body as PartialPet;
+
+  const result = await updatePet(id, partial);
+  if (result === null) {
+    res.sendStatus(404);
+  } else {
+    res.status(200).json(result);
+  }
+};
+
+const findOne: RequestHandler = async (req, res) => {
+  const { id } = req.params as PetId;
 
   const pet = await getPet(id);
 
@@ -38,6 +58,7 @@ const petController = {
   create,
   handleDelete,
   findOne,
+  update,
 };
 
 export default petController;

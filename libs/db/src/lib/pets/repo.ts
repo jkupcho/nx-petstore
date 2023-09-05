@@ -1,4 +1,4 @@
-import type { CreatePet, Pet } from './model';
+import type { CreatePet, Pet, PartialPet } from './model';
 
 import { getClient } from '../client';
 
@@ -42,12 +42,31 @@ export async function getPet(id: string): Promise<Pet | null> {
 }
 
 export async function deletePet(id: string): Promise<void> {
-  const exists = !!(await getPet(id));
+  const exists = await petExists(id);
   if (exists) {
     await client.pet.delete({
       where: {
         id,
       },
+    });
+  }
+}
+
+export async function petExists(id: string): Promise<boolean> {
+  return !!(await getPet(id));
+}
+
+export async function updatePet(
+  id: string,
+  pet: PartialPet
+): Promise<Pet | null> {
+  const exists = await petExists(id);
+  if (exists) {
+    return await client.pet.update({
+      where: {
+        id,
+      },
+      data: { ...pet },
     });
   }
 }
