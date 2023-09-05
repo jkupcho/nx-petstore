@@ -27,8 +27,6 @@ const handleDelete: RequestHandler = async (req, res) => {
   res.sendStatus(204);
 };
 
-const findOne: RequestHandler = async (req, res) => {
-  const { id } = req.params as { id: string };
 const update: RequestHandler = async (req, res) => {
   const { id } = req.params as PetId;
   const partial = req.body as PartialPet;
