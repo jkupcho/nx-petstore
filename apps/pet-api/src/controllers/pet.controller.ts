@@ -1,5 +1,5 @@
 import type { RequestHandler } from 'express';
-import type { CreatePet, PartialPet, PetId } from '@petstore/db/pets';
+import type { CreatePet, PartialPet, PetId } from '@petstore/dto';
 import {
   getAllPets,
   createPet,

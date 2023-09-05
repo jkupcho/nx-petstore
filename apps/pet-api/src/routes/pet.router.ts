@@ -1,11 +1,7 @@
 import express from 'express';
 import petController from '../controllers/pet.controller';
 import { paramsValidate, validate } from '../middleware/validate';
-import {
-  CreatePetSchema,
-  PartialPetSchema,
-  PetIdSchema,
-} from '@petstore/db/pets';
+import { CreatePetSchema, PartialPetSchema, PetIdSchema } from '@petstore/dto';
 
 const petRouter = express.Router();
 

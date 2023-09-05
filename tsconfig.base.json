@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@petstore/db": ["libs/db/src/index.ts"],
-      "@petstore/db/pets": ["libs/db/src/lib/pets/index.ts"]
+      "@petstore/db/pets": ["libs/db/src/lib/pets/index.ts"],
+      "@petstore/dto": ["libs/dto/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
